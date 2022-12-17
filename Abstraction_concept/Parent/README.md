@@ -1,1 +1,8 @@
-Create an abstract class 'Parent' with a method 'message'. It has two subclasses each having a method with the same name 'message' that prints "This is first subclass" and "This is second subclass" respectively. Call the methods 'message' by creating an object for each subclass.
+# This folder consists of 2 parts.
+
+The 'question' - Which is the current problem being solved in the parent folder.
+And the answers - Which is every other code/class created in the folder.
+
+## Explanation
+subclass1 and subclass2 are children of the parent class 'parent' 
+In other words the classes 'subclass1' and 'subclass2' extends the class 'parent' and prints the desired message to the screen 
