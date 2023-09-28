@@ -1,14 +1,12 @@
-package testinglab;
-
 import java.awt.FileDialog;
 import java.io.*; 
 
 //a class containing methods to be executed
-//depending on the option selected by the user 
+//depending on the command selected by the user 
 //from the notepad class 
 
 public class Function_File implements Serializable{
-    //an guiect instance of the notepad class to be used 
+    //an object instance of the notepad class to be used 
     Notepad gui;
 
     //variables for dealing with files 
@@ -86,8 +84,10 @@ public class Function_File implements Serializable{
         }
     }
 
+    //saves the file
     public void save(){
         
+        //if the file dosent exist redirects to the saveA method else saves the file
         if(fileName == null){
             saveAs();
         }
@@ -103,7 +103,9 @@ public class Function_File implements Serializable{
         }
     }
 
+    //exits the Jframe
     public void exit(){
+
         System.exit(0);
     }
    
