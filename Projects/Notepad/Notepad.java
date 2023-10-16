@@ -1,7 +1,9 @@
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*; 
+import javax.swing.*;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.undo.UndoManager;
 
 public class Notepad implements ActionListener{
     
@@ -14,16 +16,22 @@ public class Notepad implements ActionListener{
 
     //menu component
     JMenuBar mb = new JMenuBar(); 
-    JMenu menu, menu2, menu3, menu4, menu5; 
+    JMenu menu, mEdit, mFormat, mView, mHelp; 
     JMenuItem mNew, mOpen, mSave, mSaveAs, mExit; //file menu subn items
     JMenuItem mCopy, mCut, mPaste; //edit menu sub items 
     JMenuItem mWordWrap, fontArial, fontTimes, fontcss, FS8, FS11, FS12, FS16, FS20, FS24; //Format menu sub items 
-    JMenu mFont, mFontSize; 
+    JMenu mFont, mFontSize; //format menu submenus 
+    JMenu mChangeColor; //edit menu sub menu 
+    JMenuItem white, blue, black; //edit menu, change color sub menu items
+    JMenuItem undo, redo; 
 
     //objects for other classes
     Function_File file = new Function_File(this); 
     Function_Edit edit = new Function_Edit(this); 
-    Function_Format format = new Function_Format(this); 
+    Function_Format format = new Function_Format(this);
+    
+    //using an arbiturature 
+    UndoManager um = new UndoManager(); 
 
     public void go(){
         
@@ -40,6 +48,14 @@ public class Notepad implements ActionListener{
     public void createTextArea(){
 
         textArea = new JTextArea(); 
+        textArea.getDocument().addUndoableEditListener(
+            new UndoableEditListener() {
+                public void undoableEditHappened(UndoableEditEvent e){
+                    um.addEdit(e.getEdit()); 
+                }
+            }
+        );
+
         scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         frame.add(scrollPane);
@@ -50,17 +66,17 @@ public class Notepad implements ActionListener{
         menu = new JMenu("File");
         mb.add(menu);
 
-        menu2 = new JMenu("Edit");
-        mb.add(menu2);
+        mEdit = new JMenu("Edit");
+        mb.add(mEdit);
 
-        menu3 = new JMenu("Format");
-        mb.add(menu3);
+        mFormat = new JMenu("Format");
+        mb.add(mFormat);
 
-        menu4 = new JMenu("View");
-        mb.add(menu4);
+        mView = new JMenu("View");
+        mb.add(mView);
 
-        menu5 = new JMenu("Help");
-        mb.add(menu5);
+        mHelp = new JMenu("Help");
+        mb.add(mHelp);
 
         //adding the menubar to the frame
         frame.setJMenuBar(mb);
@@ -94,17 +110,18 @@ public class Notepad implements ActionListener{
         menu.add(mExit); 
     }
 
+    //subitems for format menu
     public void createFormatMenu(){
         mWordWrap = new JMenuItem("Word Wrap: off"); 
         mWordWrap.addActionListener(this);
         mWordWrap.setActionCommand("word wrap");
-        menu3.add(mWordWrap);
+        mFormat.add(mWordWrap);
 
         mFont = new JMenu("Font");
-        menu3.add(mFont); 
+        mFormat.add(mFont); 
 
         mFontSize = new JMenu("Font Size");
-        menu3.add(mFontSize); 
+        mFormat.add(mFontSize); 
 
         //adding fonts and font sizes to font menu
         fontArial = new JMenuItem("Arial"); 
@@ -152,20 +169,51 @@ public class Notepad implements ActionListener{
         FS24.addActionListener(this); 
         FS24.setActionCommand("24"); 
         mFontSize.add(FS24);
-    }
+    }//end of createFormatMenu method
+
+    //subitem for edit menu
+    public void createEditMenu(){
+        
+        undo = new JMenuItem("Undo"); 
+        undo.addActionListener(this);
+        undo.setActionCommand("Undo");
+        mEdit.add(undo);
+
+        redo = new JMenuItem("redo"); 
+        redo.addActionListener(this);
+        redo.setActionCommand("redo");
+        mEdit.add(redo);
+        
+        
+        mChangeColor = new JMenu("Change color"); 
+        mEdit.add(mChangeColor); 
+
+        white = new JMenuItem("White"); 
+        white.addActionListener(this);
+        white.setActionCommand("WHITE");
+        mChangeColor.add(white); 
+
+        black = new JMenuItem("Black"); 
+        black.addActionListener(this);
+        black.setActionCommand("BLACK");
+        mChangeColor.add(black); 
+
+        blue = new JMenuItem("Blue"); 
+        blue.addActionListener(this);
+        blue.setActionCommand("BLUE");
+        mChangeColor.add(blue); 
+
+        
+    }//end of createEditMenu method
 
 
-    
-    /*Next: creating the edit menu */
-
-
-
+    //actionListener nethod
     @Override
     public void actionPerformed(ActionEvent e) {
         
         String command = e.getActionCommand(); 
 
-        //switch statement to alternate between action commands from the file menu
+        //switch statement to alternate between commands
         switch(command){
             case "New": file.newFile();
                 break;
@@ -197,6 +245,18 @@ public class Notepad implements ActionListener{
                 break; 
             case "New Times": format.setFont("Times New Roman"); 
                 break; 
+            //cases for changing colors from the edit menu
+            case "WHITE": edit.changeColor(command);
+                break;
+            case "BLACK": edit.changeColor(command);
+                break;
+            case "BLUE": edit.changeColor(command);
+                break;
+            //cases for undo and redo command
+            case "Undo": edit.undo();
+                break;
+            case "Redo": edit.redo();
+                break;
 
         }//end of switch statement 
 
