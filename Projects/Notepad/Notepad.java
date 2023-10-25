@@ -17,15 +17,15 @@ public class Notepad implements ActionListener{
     //menu component
     JMenuBar mb = new JMenuBar(); 
     JMenu menu, mEdit, mFormat, mView, mHelp; 
-    JMenuItem mNew, mOpen, mSave, mSaveAs, mExit; //file menu subn items
+    JMenuItem mNew, mOpen, mSave, mSaveAs, mExit; //file menu subitems
     JMenuItem mCopy, mCut, mPaste; //edit menu sub items 
-    JMenuItem mWordWrap, fontArial, fontTimes, fontcss, FS8, FS11, FS12, FS16, FS20, FS24; //Format menu sub items 
+    JMenuItem mWordWrap, fontArial, fontTimes, fontcss, FS8, FS11, FS12, FS16, FS20, FS24; //Format menu subitems 
     JMenu mFont, mFontSize; //format menu submenus 
     JMenu mChangeColor; //edit menu sub menu 
     JMenuItem white, blue, black; //edit menu, change color sub menu items
     JMenuItem undo, redo; 
 
-    //objects for other classes
+    //Passing the current used object to other classes
     Function_File file = new Function_File(this); 
     Function_Edit edit = new Function_Edit(this); 
     Function_Format format = new Function_Format(this);
@@ -173,7 +173,7 @@ public class Notepad implements ActionListener{
 
     //subitem for edit menu
     public void createEditMenu(){
-        
+        //adding undo and redo feature
         undo = new JMenuItem("Undo"); 
         undo.addActionListener(this);
         undo.setActionCommand("Undo");
@@ -184,7 +184,7 @@ public class Notepad implements ActionListener{
         redo.setActionCommand("redo");
         mEdit.add(redo);
         
-        
+        //adding colors white, black and blue
         mChangeColor = new JMenu("Change color"); 
         mEdit.add(mChangeColor); 
 
