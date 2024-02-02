@@ -1,15 +1,67 @@
-This is a basic Notepad Application
+# Java Notepad
 
-Consists of a Main class, Notepad class, Format class, Edit class, File class, KeyHandler class
-1. Main class: This is used to Start the program, it calls the methods in the Notepad class creating the needed properties 
-2. Notepad class: This contains the essential code to link to other classes such as file or format to perform a specific function 
-3. File class: This is used in keeping saving, updating and keeping track of files, makes use of FileDialog(from Java.awt) for displaying dialog box to choose and save files, and file Serializable(from java.io) for saving files and objects 
-4. Format class: This contains options to turn word wrap on or off and also to set Text font
-5. Edit class: This is used to change color of the text and also includes undo and redo features
-6. KeyHandler class: This handles basic shortcut key command used by the user 
+Java Notepad is a simple text editor application implemented in Java. It provides basic text editing functionalities and features such as file handling, text formatting, and undo/redo operations.
 
-Concepts Learned 
-1. Objects and classes.
-2. Java Swing.
-3. Java Awt.
-4. Serialization(Saving objects and files).
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [How to Use](#how-to-use)
+- [File Menu](#file-menu)
+- [Edit Menu](#edit-menu)
+- [Format Menu](#format-menu)
+- [Keyboard Shortcuts](#keyboard-shortcuts)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Introduction
+
+This Java Notepad project aims to create a lightweight and user-friendly text editor with essential features for everyday use.
+
+## Features
+
+- **File Handling:** New, Open, Save, Save As, and Exit functionalities.
+- **Text Editing:** Basic text editing features like copy, cut, paste, undo, and redo.
+- **Formatting Options:** Change font, font size, enable word wrap, and change text color.
+
+## How to Use
+
+1. Compile and run the `Main` class to start the Java Notepad application.
+2. Use the menus to perform various actions such as opening, saving files, and formatting text.
+3. Customize the text appearance with font and color options.
+
+## File Menu
+
+- **New:** Create a new empty document.
+- **Open:** Open an existing text file.
+- **Save:** Save the current document.
+- **Save As:** Save the current document with a new name.
+- **Exit:** Close the Notepad application.
+
+## Edit Menu
+
+- **Undo:** Undo the last edit action.
+- **Redo:** Redo the last undone action.
+- **Change Color:** Change the color of the text.
+
+## Format Menu
+
+- **Word Wrap:** Enable or disable word wrap for the text.
+- **Font:** Choose different fonts for the text.
+- **Font Size:** Select from various font sizes.
+
+## Keyboard Shortcuts
+
+- **Ctrl + S:** Save the document.
+- **Ctrl + C:** Copy selected text.
+- **Ctrl + V:** Paste copied text.
+- **Ctrl + Z:** Undo the last action.
+- **Ctrl + Y:** Redo the last undone action.
+
+## Contributing
+
+Contributions are welcome! If you have any suggestions or want to report issues, please feel free to submit a pull request or open an issue.
+
+## License
+
+This Java Notepad project is open-source and available under the [MIT License](LICENSE).
