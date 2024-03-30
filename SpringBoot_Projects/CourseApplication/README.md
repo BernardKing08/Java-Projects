@@ -33,11 +33,11 @@ mvn spring-boot:run
 
 The following endpoints are available in the application:
 
-- `GET /courses`: Retrieves a list of courses.
-- `GET /courses/{id}`: Retrieves a course by ID.
-- `POST /courses`: Creates a new course.
-- `PUT /courses/{id}`: Updates a course by ID.
-- `DELETE /courses/{id}`: Deletes a course by ID.
+- `GET /topic`: Retrieves a list of courses.
+- `GET /topic/{id}`: Retrieves a course by ID.
+- `POST /topic`: Creates a new course.
+- `PUT /topic/{id}`: Updates a course by ID.
+- `DELETE /topic/{id}`: Deletes a course by ID.
 
 ## Contributing
 
