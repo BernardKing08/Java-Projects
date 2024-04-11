@@ -1,1 +1,10 @@
-this are things that are to be included in my future github project
+This are things i plan to work on in the future 
+
+1. A simple chat gui using Java Swing and Java Sockets and Networking principles 
+to create a connection and send and recieve messages from one ip address to another 
+
+2. Banking application: to simulate Ussd style bank transfer and bank transactions 
+using basic CommandLine interface 
+
+3. Looking to work on HTML and css concepts and also thymeleaf for spring boot projects 
+as thats where my attention resides for the time been
