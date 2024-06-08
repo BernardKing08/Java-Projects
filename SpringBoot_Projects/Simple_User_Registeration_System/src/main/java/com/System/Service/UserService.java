@@ -14,7 +14,7 @@ public class UserService {
 															new User("2", "King", "1234", "boss@email.com"),
 															new User("3", "Jessy", "chika", "chi@email.com")));
 	
-	
+	@TrackExecutionTime
 	public void addNewUser(User user) {
 		listOfUsers.add(user);
 		
@@ -29,6 +29,7 @@ public class UserService {
 	}
 	
 	//gets a particular user by id
+	@TrackExecutionTime
 	public User getUserById(String id) {
         return listOfUsers.stream()
                           .filter(u -> u.getId().equals(id))
@@ -37,6 +38,7 @@ public class UserService {
     }
 
 	//deletes a user resource by id
+	@TrackExecutionTime
     public void deleteUser(String id) {
         listOfUsers = listOfUsers.stream()
                                  .filter(u -> !u.getId().equals(id))
@@ -44,6 +46,7 @@ public class UserService {
     }
 
     //updates a user 
+	@TrackExecutionTime
 	public boolean updateUser(User user, String id) {
 		for(int i = 0; i < listOfUsers.size(); i++) {
 			User u = listOfUsers.get(i); 

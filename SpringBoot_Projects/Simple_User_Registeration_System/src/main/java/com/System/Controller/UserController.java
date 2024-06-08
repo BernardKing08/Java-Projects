@@ -35,23 +35,27 @@ public class UserController {
 	
 	//retrieving a particular user
 	@GetMapping(value = {"/user/{id}"})
+	@TrackExecutionTime
 	public User getUserById(@PathVariable String id) {
 		return userService.getUserById(id);
 	}
 	
 	//adding user resource
+	@TrackExecutionTime
 	@PostMapping(value = "/user")
 	public void addNewUser(@RequestBody User user){
 		userService.addNewUser(user);
 	}
 	
 	//updating a user resource
+	@TrackExecutionTime
 	@PutMapping(value = {"/user/{id}"})
 	public void updateUser(@PathVariable String id, @RequestBody User updatedUser) {
 		userService.updateUser(updatedUser, id);		
 	}
 	
-	//deleting user resource 
+	//deleting user resource
+	@TrackExecutionTime
 	@DeleteMapping(value = "/user/{id}")
 	public void deleteUser(@PathVariable String id) {
 		userService.deleteUser(id);

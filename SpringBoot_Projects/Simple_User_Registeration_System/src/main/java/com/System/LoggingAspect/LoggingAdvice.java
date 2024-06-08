@@ -2,7 +2,6 @@ package com.System.LoggingAspect;
 
 import java.time.Duration;
 import java.time.Instant;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -38,7 +37,7 @@ public class LoggingAdvice {
 	}
 	
     
-    @Around("annotation(com.System.Config.TrackExecutionTime)")
+    @Around("within(com.System.Service.*)")
     public void executionTime(ProceedingJoinPoint joinPoint) throws Throwable {
     	log.info(joinPoint.getSignature().toString() + " method execution start");
         Instant start = Instant.now();
