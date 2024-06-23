@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookstore - Place Order</title>
+    <link rel="stylesheet" href="	/assets/css/styles.css">
+</head>
+<body>
+	<!--Header replace-->
+		<div th:replace="~{header :: header}"></div>
+	<!--Header replace-->
+	
+    <main>
+        <h2>Place Order</h2>
+        <form id="order-form" action="/order" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+            <button type="submit">Place Order</button>
+        </form>
+    </main>
+    <script src="	/assets/js/scripts.js"></script>
+</body>
+</html>

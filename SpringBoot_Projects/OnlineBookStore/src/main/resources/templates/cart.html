@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookstore - Cart</title>
+    <link rel="stylesheet" href="	/assets/css/styles.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+	<!--Header replace-->
+		<div th:replace="~{header :: header}"></div>
+	<!--Header replace-->
+    <main>
+        <h2>Shopping Cart</h2>
+        <div id="cart-items">
+            <!-- Cart items will be dynamically added here 
+				<div id="book-detail" th:object="${book}" class="row">
+							<div class="col-md-3">
+								<img th:src="@{/assets/image/{imageUrl}(imageUrl=${book.imageUrl})}" class="img-fluid" alt="Book Image">
+				           	</div>
+				           	<div class="col-md-9">
+				           	   <h3 th:text="${book.name}">Book Name</h3>
+				               <p><strong>Author:</strong> <span th:text="${book.author}">Author Name</span></p>
+				               <p><strong>Description:</strong> <span th:text="${book.description}">Book Description</span></p>
+				           </div>
+				        </div>
+				
+				
+				
+				-->
+        </div>
+        <button id="checkout">Checkout</button>
+    </main>
+    <script src="	/assets/js/scripts.js"></script>
+</body>
+</html>

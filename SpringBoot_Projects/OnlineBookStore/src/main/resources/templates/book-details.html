@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookstore - Book Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/assets/css/styles.css}">
+    <style>
+        .book-detail-container {
+            display: flex;
+            align-items: flex-start;
+        }
+        .book-image {
+            margin-right: 20px;
+            width: 200px;
+            height: auto;
+        }
+        .book-details {
+            flex-grow: 1;
+        }
+        .book-name {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .review-form {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .review-form label {
+            font-weight: bold;
+        }
+        .review-form input[type="text"],
+        .review-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .review-form button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!--Header replace-->
+    <div th:replace="~{header :: header}"></div>
+    <!--Header replace-->
+
+    <main class="container mt-5">
+        <h2>Book Details</h2>
+        <div id="book-detail" th:object="${book}" class="row book-detail-container">
+            <div>
+                <img th:src="@{/assets/image/{imageUrl}(imageUrl=${book.imageUrl})}" class="img-fluid book-image" alt="Book Image">
+            </div>
+            <div class="book-details">
+                <h3 class="book-name" th:text="${book.name}">Book Name</h3>
+                <p><strong>Author:</strong> <span th:text="${book.author}">Author Name</span></p>
+                <p><strong>Description:</strong> <span th:text="${book.description}">Book Description</span></p>
+                <button id="add-to-cart" th:action="@{/addToCart}" class="btn btn-primary m-1">Add to Cart</button>
+            </div>
+        </div>
+        <div class="review-form">
+            <h3 class="mb-3">Leave a Review</h3>
+            <form>
+                <div class="mb-3">
+                    <label for="reviewer-name">Name</label>
+                    <input type="text" class="form-control" id="reviewer-name" placeholder="Your name">
+                </div>
+                <div class="mb-3">
+                    <label for="review-text">Review</label>
+                    <textarea class="form-control" id="review-text" rows="3" placeholder="Write your review here"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+            </form>
+        <

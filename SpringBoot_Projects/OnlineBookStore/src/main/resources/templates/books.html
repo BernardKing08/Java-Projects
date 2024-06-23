@@ -1,0 +1,53 @@
+<!-- src/main/resources/templates/books.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookstore - Books</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <!--Header replace-->
+    <div th:replace="~{header :: header}"></div>
+    <!--Header replace-->
+
+	<!-- 
+	<div th:replace="~{navbar :: navbar"></divth>
+		-->
+    <main>
+        <h2>Book Listing</h2>
+        <div id="book-list">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+					<tr th:each="book : ${books}" th:data-url="@{/book-details/{id}(id=${book.id})}">
+                        <th scope="row" th:text="${book.id}"></th>
+                        <td th:text="${book.author}"></td>
+                        <td th:text="${book.name}"></td>
+                        <td th:text="${book.description}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="/assets/js/scripts.js"></script>
+	<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll("tr[data-url]").forEach(function(row) {
+                row.addEventListener("click", function() {
+                    window.location.href = row.getAttribute("data-url");
+                });
+            });
+        });
+	</script>
+</body>
+</html>
