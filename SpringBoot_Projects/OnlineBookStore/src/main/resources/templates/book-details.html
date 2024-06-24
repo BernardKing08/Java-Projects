@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Bookstore - Book Details</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/assets/css/styles.css}">
+    <link rel="stylesheet" href="/assets/css/styles.css">
     <style>
         .book-detail-container {
             display: flex;
@@ -64,20 +63,48 @@
                 <h3 class="book-name" th:text="${book.name}">Book Name</h3>
                 <p><strong>Author:</strong> <span th:text="${book.author}">Author Name</span></p>
                 <p><strong>Description:</strong> <span th:text="${book.description}">Book Description</span></p>
-                <button id="add-to-cart" th:action="@{/addToCart}" class="btn btn-primary m-1">Add to Cart</button>
+                <form th:action="@{/addToCart}" method="post">
+                    <button type="submit" class="btn btn-primary m-1" id="add-to-cart">Add to Cart</button>
+                </form>
             </div>
         </div>
         <div class="review-form">
             <h3 class="mb-3">Leave a Review</h3>
-            <form>
+            <form th:action="@{/submitReview}" method="post">
                 <div class="mb-3">
                     <label for="reviewer-name">Name</label>
-                    <input type="text" class="form-control" id="reviewer-name" placeholder="Your name">
+                    <input type="text" class="form-control" id="reviewer-name" name="reviewerName" placeholder="Your name">
                 </div>
                 <div class="mb-3">
                     <label for="review-text">Review</label>
-                    <textarea class="form-control" id="review-text" rows="3" placeholder="Write your review here"></textarea>
+                    <textarea class="form-control" id="review-text" name="reviewText" rows="3" placeholder="Write your review here"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit Review</button>
             </form>
-        <
+        </div>
+    </main>
+    
+    <script>
+        // Sample script to handle adding items to the cart and other interactivity
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const addToCartButtons = document.querySelectorAll('#add-to-cart');
+
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    // Add to cart functionality
+                    alert('Book added to cart!');
+                });
+            });
+
+            const checkoutButton = document.getElementById('checkout');
+            if (checkoutButton) {
+                checkoutButton.addEventListener('click', function () {
+                    // Checkout functionality
+                    alert('Proceeding to checkout!');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

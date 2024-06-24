@@ -20,6 +20,7 @@ public class LoginController {
 		}
 		if(logout != null) {
 			errorMessage = "You have successfully logged out";
+			
 		}
 		
 		model.addAttribute("errorMessage", errorMessage);

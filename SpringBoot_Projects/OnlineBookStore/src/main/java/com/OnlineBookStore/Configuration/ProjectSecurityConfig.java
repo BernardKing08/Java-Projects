@@ -2,6 +2,7 @@ package com.OnlineBookStore.Configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ public class ProjectSecurityConfig {
         http
         	.csrf(csrf -> csrf.disable())
         	.authorizeHttpRequests(auth -> auth
+        			.requestMatchers("/addToCart").authenticated()
         			.requestMatchers("/book-details/**").permitAll()
         			.requestMatchers("/getAllBooks").authenticated()
         			.requestMatchers("/books").permitAll()
@@ -33,7 +35,9 @@ public class ProjectSecurityConfig {
             )
             .logout(logoutConfigurer -> logoutConfigurer.logoutSuccessUrl("/login?logout=true")
                     .invalidateHttpSession(true).permitAll()
-            );
+                    .deleteCookies("JSESSIONID").permitAll()
+            )
+            .httpBasic(Customizer.withDefaults());;
 
         return http.build();
     }

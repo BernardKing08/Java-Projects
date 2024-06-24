@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" >
 <head>
     <meta charset="UTF-8">
     <title>Bookstore - Books</title>
@@ -18,16 +18,11 @@
                     <a th:href="@{/cart}" sec:authorize="isAuthenticated()" class="text-white mr-3">Cart</a>
                     <a th:href="@{/order/history}" sec:authorize="isAuthenticated()" class="text-white mr-3">Order History</a>
                     <a th:href="@{/login}" sec:authorize="isAnonymous()" class="text-white">Login</a>
-					<a th:href="@{/login?logout=true}" sec:authorize="isAuthenticated()" class="text-white">logout</a>
+					<a th:href="@{/login?logout=true}" sec:authorize="isAuthenticated()" th:refresh="true" class="text-white">logout</a>
                 </nav>
             </div>
         </div>
     </header>
-    <main class="container mt-5">
-        <!-- Add your main content here -->
-    </main>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
 </body>
 </html>
