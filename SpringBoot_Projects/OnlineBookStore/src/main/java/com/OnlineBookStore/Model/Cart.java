@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Cart {
-	private String id; 
+	
 	private Book book;
+	private int cartItemNo;
 }
+
