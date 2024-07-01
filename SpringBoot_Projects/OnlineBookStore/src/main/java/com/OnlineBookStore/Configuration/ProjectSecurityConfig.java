@@ -17,27 +17,36 @@ public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain sfc(HttpSecurity http) throws Exception {
         http
-        	.csrf(csrf -> csrf.disable())
-        	.authorizeHttpRequests(auth -> auth
-        			.requestMatchers("/addToCart").authenticated()
-        			.requestMatchers("/book-details/**").permitAll()
-        			.requestMatchers("/getAllBooks").authenticated()
-        			.requestMatchers("/books").permitAll()
-	                .requestMatchers("/login").permitAll()
-	                .requestMatchers("/assets/**").permitAll()
-	                .requestMatchers("/order/history").authenticated()
-	                .requestMatchers("/cart").authenticated()
-	                .requestMatchers("/order").authenticated()
+            .csrf(csrf -> csrf
+            		.ignoringRequestMatchers("/addToCart")
+            		.ignoringRequestMatchers("/removeItem")
+            ) // Ignore CSRF protection for /addToCart /removeItem
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/addToCart").authenticated()
+                .requestMatchers("/removeItem").authenticated()
+                .requestMatchers("/book-details/**").permitAll()
+                .requestMatchers("/getAllBooks").authenticated()
+                .requestMatchers("/books").permitAll()
+                .requestMatchers("/login").permitAll()
+                .requestMatchers("/assets/**").permitAll()
+                .requestMatchers("/order/history").authenticated()
+                .requestMatchers("/cart").authenticated()
+                .requestMatchers("/order").authenticated()
             )
             .formLogin(form -> form
-	                .loginPage("/login")
-	                .defaultSuccessUrl("/books", true).failureUrl("/login?error=true").permitAll()
+                .loginPage("/login")
+                .defaultSuccessUrl("/books", true)
+                .failureUrl("/login?error=true")
+                .permitAll()
             )
-            .logout(logoutConfigurer -> logoutConfigurer.logoutSuccessUrl("/login?logout=true")
-                    .invalidateHttpSession(true).permitAll()
-                    .deleteCookies("JSESSIONID").permitAll()
+            .logout(logoutConfigurer -> logoutConfigurer
+                .logoutSuccessUrl("/login?logout=true")
+                .invalidateHttpSession(true)
+                .permitAll()
+                .deleteCookies("JSESSIONID")
+                .permitAll()
             )
-            .httpBasic(Customizer.withDefaults());;
+            .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
@@ -45,16 +54,16 @@ public class ProjectSecurityConfig {
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails user = User.builder()
-        		.username("User")
-        		.password(passwordEncoder().encode("1"))
-        		.roles("USER")
-        		.build();
-        
+            .username("User")
+            .password(passwordEncoder().encode("1"))
+            .roles("USER")
+            .build();
+
         UserDetails admin = User.builder()
-        		.username("Admin")
-        		.password(passwordEncoder().encode("11111"))
-        		.roles("ADMIN")
-        		.build();
+            .username("Admin")
+            .password(passwordEncoder().encode("11111"))
+            .roles("ADMIN")
+            .build();
 
         return new InMemoryUserDetailsManager(user, admin);
     }
