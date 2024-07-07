@@ -5,281 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-	<style>
-		/* Importing Google font - Poppins */
-		@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-		
-		* {
-		  margin: 0;
-		  padding: 0;
-		  box-sizing: border-box;
-		  font-family: "Poppins", sans-serif;
-		}
-		
-		body{
-		    min-height: 100vh;
-		    background: #d2d2d2;
-		}
-		
-		.sidebar{
-		    position: fixed;
-		    top: 0;
-		    left: 0;
-		    display: flex;
-		    flex-direction: column;
-		    overflow-x: hidden;
-		    height: 100%;
-		    width: 85px;
-		    background: #161a2d;
-		    padding: 25px 20px;
-		    transition: all 0.4s ease;
-		}
-		
-		.sidebar:hover{
-		    width: 260px;
-		
-		}
-		
-		.sidebar-header{
-		    display: flex;    
-		    align-items: center;
-		}
-		
-		.sidebar-header img{
-		    width: 42px;
-		    border-radius: 50%;
-		}
-		
-		.sidebar-header h2{
-		    font-size: 1.25rem;
-		    font-weight: 600;
-		    color: #fff;
-		    margin-left: 25px;
-		}
-		
-		.sidebar-links{
-		    list-style: none;
-		    margin-top: 20px;
-		    height: 80%;
-		    overflow-y: auto;
-		    scrollbar-width: none;
-		}
-		
-		.sidebar-links h4{
-		    color: #fff;
-		    font-weight: 500;
-		    margin: 10px 0;
-		    white-space: nowrap;
-		    position: relative;
-		}
-		
-		.sidebar-links h4 span{
-		    opacity: 0;
-		}
-		
-		.sidebar:hover .sidebar-links h4 span{
-		    opacity: 1;
-		}
-		
-		.sidebar-links .menu-seperator{
-		    position: absolute;
-		    top: 50%;
-		    left: 0;
-		    width: 100%;
-		    height: 1px;
-		    transform: scaleX(1);
-		    transform: translateY(-50%);
-		    background: #333578;
-		    transform-origin: right;
-		    transition-duration: 0.2s;
-		}
-		
-		.sidebar:hover .sidebar-links .menu-seperator{
-		    transition-delay: 0s;
-		    transform: scaleX(0);
-		
-		}
-		
-		.sidebar-links li a{
-		    display: flex;
-		    align-items: center;
-		    gap: 0 20px;
-		    padding: 15px 10px;
-		    color: #dbd4d4e3;
-		    font-weight: 500;
-		    white-space: nowrap;
-		    text-decoration: none;
-		    
-		}
-		
-		.sidebar-links li a:hover{
-		    background: #ffffff2d;
-		    color: #fff;
-		    border-radius: 4px;
-		
-		}
-		
-		.user-account{
-		    margin-top: auto;
-		    padding: 12px 10px;
-		    margin-left: -10px;
-		}
-		
-		.user-account .user-profile{
-		    color: #e5dede;
-		    display: flex;
-		    align-items: center;
-		}
-		
-		.user-profile img{
-		    width: 42px;
-		    border-radius: 50%;
-		}
-		
-		.user-profile h3{
-		    font-size: 1rem;
-		    font-weight: 600;
-		}
-		
-		.user-profile span{
-		    font-size: 0.775rem;
-		    font-weight: 600;
-		    display: block;
-		    margin-top: 0;
-		}
-		
-		.user-details{
-		    margin-left: 23px;
-		    white-space: nowrap;    
-		}
-		
-		.sidebar:hover .user-account{
-		    background: #ffffff2d;
-		    border-radius: 4px;
-		
-		}
-	</style>
-    <title>Responsive SideBar</title>
+	
+    <title>Responsive BootStrap SideBar</title>
 </head>
 <body>
 
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <img src="assets/images/logo.png" alt="logo">
-            <h2>Coding lab</h2>
-        </div>
-            <ul class="sidebar-links">
-                
-                <h4>
-                    <span>
-                        Main Menu
-                    </span>
-                    <div class="menu-seperator"></div>
-                </h4>
-                
-                <li>
-                    <a href="#">
-                        <span class="material-symbols-outlined">
-                            dashboard
-                        </span>
-                        Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="material-symbols-outlined">
-                            Overview
-                        </span>
-                        Overview
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="material-symbols-outlined">
-                            Monitoring
-                        </span>
-                        Analysis
-                    </a>
-                </li>
-                <h4>
-                    <span>
-                        General
-                    </span>
-                    <div class="menu-seperator"></div>
-                </h4>
-                <li>
-                    <a href="#">
-                        <span class="material-symbols-outlined">
-                            folder
-                        </span>
-                        Projects
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="material-symbols-outlined">
-                            groups
-                        </span>
-                        Groups
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="material-symbols-outlined">
-                            flag
-                        </span>
-                        Report
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="material-symbols-outlined">
-                            notifications_active
-                        </span>
-                        Notifications
-                    </a>
-                </li>
-                <h4>
-                    <span>
-                        Account
-                    </span>
-                    <div class="menu-seperator"></div>
-                </h4>
-                <li>
-                    <a href="#">
-                        <span class="material-symbols-outlined">
-                            Account_Circle
-                        </span>
-                        Profile
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="material-symbols-outlined">
-                            Settings
-                        </span>
-                        Settings
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="material-symbols-outlined">
-                            logout
-                        </span>
-                        logout
-                    </a>
-                </li>
-            </ul>
-
-            <div class="user-account">
-                <div class="user-profile">
-                    <img src="assets/images/profile-img.jpg" alt="profile-img">
-                    <div class="user-details">
-                        <h3>Benny King</h3>
-                        <span>Web Developer</span>
-                    </div>
-                </div>
-            </div>
-    </aside>
+	<nav class="navbar bg-body-tertiary fixed-top">
+	  <div class="container-fluid">
+	    <a class="navbar-brand" href="#">Offcanvas navbar</a>
+	    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+	      <div class="offcanvas-header">
+	        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+	      </div>
+	      <div class="offcanvas-body">
+	        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+	          <li class="nav-item">
+	            <a class="nav-link active" aria-current="page" href="#">Home</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="#">Link</a>
+	          </li>
+	          <li class="nav-item dropdown">
+	            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	              Dropdown
+	            </a>
+	            <ul class="dropdown-menu">
+	              <li><a class="dropdown-item" href="#">Action</a></li>
+	              <li><a class="dropdown-item" href="#">Another action</a></li>
+	              <li>
+	                <hr class="dropdown-divider">
+	              </li>
+	              <li><a class="dropdown-item" href="#">Something else here</a></li>
+	            </ul>
+	          </li>
+	        </ul>
+	        <form class="d-flex mt-3" role="search">
+	          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+	          <button class="btn btn-outline-success" type="submit">Search</button>
+	        </form>
+	      </div>
+	    </div>
+	  </div>
+	</nav>
 </body>
 </html>
