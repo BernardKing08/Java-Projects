@@ -1,28 +1,61 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
-    <title>Bookstore - Books</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/styles.css">
+    <title>Header Fragment</title>
 </head>
 <body>
     <header class="bg-dark text-white py-3">
-        <div class="container">
-            <div class="d-flex justify-content-between ">
-                <a th:href="@{/books}" class="text-white text-decoration-none">
-                    <h1 class="h3">Bookstore</h1>
-                </a>
-                <nav>
-                    <a th:href="@{/books}" class="text-white mr-3">Books</a>
-                    <a th:href="@{/cart}" sec:authorize="isAuthenticated()" class="text-white mr-3">Cart</a>
-                    <a th:href="@{/order/history}" sec:authorize="isAuthenticated()" class="text-white mr-3">Order History</a>
-                    <a th:href="@{/login}" sec:authorize="isAnonymous()" class="text-white">Login</a>
-					<a th:href="@{/login?logout=true}" sec:authorize="isAuthenticated()" th:refresh="true" class="text-white">logout</a>
-                </nav>
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid d-flex justify-content-start align-items-center">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand ms-3" th:href="@{/books}">BookStore</a>
+
+                <div class="d-flex flex-row ms-auto">
+                    <ul class="navbar-nav d-flex flex-row me-5">
+                        <li class="nav-item">
+                            <a th:href="@{/books}" class="nav-link active" aria-current="page">Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/cart}" sec:authorize="isAuthenticated()" class="nav-link active" aria-current="page">Cart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/login}" sec:authorize="isAnonymous()" class="nav-link">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/login?logout=true}" sec:authorize="isAuthenticated()" class="nav-link">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="offcanvas offcanvas-start w-auto text-bg-dark" data-bs-backdrop="false" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Book-Store</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body p-0" style="width: 150px;">
+                        <div class="d-flex flex-column" style="height: 100px;">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 p-1">
+                                <li class="nav-item">
+                                    <a th:href="@{/books}" class="nav-link active" aria-current="page">Books</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a th:href="@{/cart}" sec:authorize="isAuthenticated()" class="nav-link active" aria-current="page">Cart</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/order}">Order</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </nav>
     </header>
-    
 </body>
 </html>
