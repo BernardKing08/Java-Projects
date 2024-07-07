@@ -31,14 +31,14 @@
                             <form th:action="@{/removeItem}" method="post">
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                 <input type="hidden" name="id" th:value="${cartItem.cartItemNo}"/>
-                                <button type="submit" class="btn btn-primary m-1">Remove Item</button>
+                                <button type="submit" class="btn btn-secondary m-1">Remove Item</button>
                             </form>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>  
-        <button id="checkout" class="btn-primary m-2 rounded">Checkout</button>
+        <button id="checkout" class="btn-secondary m-2 rounded">Checkout</button>
     </main>
     
     <script src="/assets/js/scripts.js"></script>
