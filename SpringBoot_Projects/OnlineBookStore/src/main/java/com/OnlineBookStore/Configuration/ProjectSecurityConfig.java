@@ -20,18 +20,20 @@ public class ProjectSecurityConfig {
             .csrf(csrf -> csrf
             		.ignoringRequestMatchers("/addToCart")
             		.ignoringRequestMatchers("/removeItem")
-            ) // Ignore CSRF protection for /addToCart /removeItem
+            ) 
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/addToCart").authenticated()
-                .requestMatchers("/removeItem").authenticated()
-                .requestMatchers("/book-details/**").permitAll()
-                .requestMatchers("/getAllBooks").authenticated()
-                .requestMatchers("/books").permitAll()
-                .requestMatchers("/login").permitAll()
-                .requestMatchers("/assets/**").permitAll()
-                .requestMatchers("/order/history").authenticated()
-                .requestMatchers("/cart").authenticated()
-                .requestMatchers("/order").authenticated()
+	                .requestMatchers("/addToCart").authenticated()
+	                .requestMatchers("/removeItem").authenticated()
+	                .requestMatchers("/book-details/**").permitAll()
+	                .requestMatchers("/getAllBooks").authenticated()
+	                .requestMatchers("/books").permitAll()
+	                .requestMatchers("/login").permitAll()
+	                .requestMatchers("/logout").permitAll()
+	              
+	                .requestMatchers("/assets/**").permitAll()
+	                .requestMatchers("/order/history").authenticated()
+	                .requestMatchers("/cart").authenticated()
+	                .requestMatchers("/order").authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
@@ -39,6 +41,7 @@ public class ProjectSecurityConfig {
                 .failureUrl("/login?error=true")
                 .permitAll()
             )
+            //this would not work since the login controller is being controlled in the controller class
             .logout(logoutConfigurer -> logoutConfigurer
                 .logoutSuccessUrl("/login?logout=true")
                 .invalidateHttpSession(true)

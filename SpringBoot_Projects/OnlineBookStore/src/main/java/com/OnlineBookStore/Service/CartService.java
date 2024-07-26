@@ -29,6 +29,4 @@ public class CartService {
             .filter(cart -> cart.getCartItemNo() != cartItemNo)
             .collect(Collectors.toList());
     }
-
-	
 }
