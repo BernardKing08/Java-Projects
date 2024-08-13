@@ -1,3 +1,5 @@
+package encapsulation.EncapsulationChallenge;
+
 public class Printer {
 
     private int tonerLevel;
