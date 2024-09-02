@@ -4,52 +4,47 @@
     <meta charset="UTF-8">
     <title>Bookstore - Cart</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
     <!--Header replace-->
     <div th:replace="~{header :: header}"></div>
-    <!--Header replace-->
+    <!--Header replace--> 
     <main>
-        <h2>Shopping Cart</h2>
-        <!-- Cart items is be dynamically added here -->
-        <div id="book-list">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Author</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="cartItem, iterStat : ${cartItems}" th:data-url="@{/book-details/{id}(id=${cartItem.book.id})}">
-                        <td th:text="${iterStat.count}"></td> <!-- Display row number -->
-                        <td th:text="${cartItem.book.name}"></td>
-                        <td th:text="${cartItem.book.author}"></td>
-                        <td>
-                            <form th:action="@{/removeItem}" method="post">
-                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                                <input type="hidden" name="id" th:value="${cartItem.cartItemNo}"/>
-                                <button type="submit" class="btn btn-secondary m-1">Remove Item</button>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>  
-        <button id="checkout" class="btn-secondary m-2 rounded">Checkout</button>
+        <div class="container mt-4">
+            <h2>Shopping Cart</h2>
+            <!-- Cart items dynamically added here -->
+            <div id="book-list">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cartItem, iterStat : ${cartItems}">
+                            <td th:text="${iterStat.count}"></td> <!-- Display row number -->
+                            <td th:text="${cartItem.name}"></td>
+                            <td th:text="${cartItem.author}"></td>
+                            <td th:text="${cartItem.qty}"></td>
+                            <td>
+                                <form th:action="@{/removeItem}" method="post">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                    <input type="hidden" name="id" th:value="${cartItem.uuid}"/>
+                                    <button type="submit" class="btn btn-secondary m-1">Remove Item</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>  
+            <button id="checkout" class="btn btn-secondary m-3 ms-3 rounded">Checkout</button>
+        </div>
     </main>
     
     <script src="/assets/js/scripts.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll("tr[data-url]").forEach(function(row) {
-                row.addEventListener("click", function() {
-                    window.location.href = row.getAttribute("data-url");
-                });
-            });
-        });
-    </script>
 </body>
 </html>
