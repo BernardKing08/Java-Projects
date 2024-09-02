@@ -6,46 +6,12 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/assets/css/styles.css">
     <style>
-        .book-detail-container {
-            display: flex;
-            align-items: flex-start;
-        }
         .book-image {
             margin-right: 20px;
             width: 200px;
             height: auto;
         }
-        .book-details {
-            flex-grow: 1;
-        }
-        .book-name {
-            font-size: 2rem;
-            font-weight: bold;
-        }
-        .review-form {
-            margin-top: 30px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .review-form label {
-            font-weight: bold;
-        }
-        .review-form input[type="text"],
-        .review-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .review-form button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            cursor: pointer;
-        }
+       
     </style>
 </head>
 <body>
@@ -55,14 +21,16 @@
 
     <main class="container mt-5">
         <h2>Book Details</h2>
-        <div id="book-detail" th:object="${book}" class="row book-detail-container">
-            <div>
+		
+        <div id="book-detail" th:object="${book}" class="row my-3 g-1 book-detail-container">
+            <div class="col-md">
                 <img th:src="@{/assets/image/{imageUrl}(imageUrl=${book.imageUrl})}" class="img-fluid book-image" alt="Book Image">
             </div>
-            <div class="book-details">
+            <div class=" col-md-9 book-details">
                 <h3 class="book-name" th:text="${book.name}">Book Name</h3>
                 <p><strong>Author:</strong> <span th:text="${book.author}">Author Name</span></p>
                 <p><strong>Description:</strong> <span th:text="${book.description}">Book Description</span></p>
+				
                 <form th:action="@{/addToCart}" method="post">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <input type="hidden" name="id" th:value="${book.id}"/>
@@ -70,20 +38,22 @@
                 </form>
             </div>
         </div>
-        <div class="review-form">
-            <h3 class="mb-3">Leave a Review</h3>
-            <form th:action="@{/submitReview}" method="post">
-                <div class="mb-3">
-                    <label for="reviewer-name">Name</label>
-                    <input type="text" class="form-control" id="reviewer-name" name="reviewerName" placeholder="Your name">
-                </div>
-                <div class="mb-3">
-                    <label for="review-text">Review</label>
-                    <textarea class="form-control" id="review-text" name="reviewText" rows="3" placeholder="Write your review here"></textarea>
-                </div>
-                <button type="submit" class="btn btn-secondary">Submit Review</button>
-            </form>
-        </div>
+		
+		<form class="mt-5">
+		  <fieldset disabled>
+		    <legend>Live a Review</legend>
+		    <div class="mb-3">
+		      <label for="disabledTextInput" class="form-label">No comments</label>
+		      <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
+		    </div>
+		    <div class="mb-3">
+		      <label for="" class="form-label">Disabled Comments</label>
+			  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+		    </div>
+		    
+		    <button type="submit" class="btn btn-primary">Submit</button>
+		  </fieldset>
+		</form>
     </main>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
