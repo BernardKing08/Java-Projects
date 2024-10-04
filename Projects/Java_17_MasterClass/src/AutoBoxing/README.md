@@ -1,0 +1,1 @@
+A simple bank application that keeps track of users and their transactions
