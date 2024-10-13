@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Main {
 
-    record Person(String firstName, String lastName){
+    record Person(String firstName, String lastName){ 
         @Override
         public String toString(){
             return firstName + " " + lastName;
