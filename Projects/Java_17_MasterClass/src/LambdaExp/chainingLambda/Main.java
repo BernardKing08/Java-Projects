@@ -26,7 +26,7 @@ public class Main {
         System.out.println(Arrays.toString(f0.apply(name)));
 
         Function<String, String> f1 = uCase
-            .andThen(s -> s.concat("Benny"))
+            .andThen(s -> s.concat(" Benny"))
             .andThen(s -> s.split(" "))
             .andThen(s -> s[1].toUpperCase() + ", " + s[0]);
         System.out.println(f1.apply(name));
