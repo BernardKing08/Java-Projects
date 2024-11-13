@@ -1,6 +1,7 @@
 package CollectionMethods.DeckOfCard;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public record Card(Suit suit, String face, int rank) {
@@ -11,6 +12,10 @@ public record Card(Suit suit, String face, int rank) {
         public char getImage() {
             return (new char[]{'\u2663', '\u2666', '\u2665', '\u2660'})[this.ordinal()];
         }
+    }
+
+    public static Comparator<Card> sortRankReverseSuit(){
+        return Comparator.comparing(Card::rank).reversed().thenComparing(Card::suit);
     }
 
     @Override
