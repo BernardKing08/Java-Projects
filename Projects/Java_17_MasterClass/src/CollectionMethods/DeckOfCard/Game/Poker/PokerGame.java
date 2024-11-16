@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 
 import CollectionMethods.DeckOfCard.Card;
 
@@ -32,7 +33,15 @@ public class PokerGame {
 
         deal();
         System.out.println("-".repeat(25));
-        pokerHands.forEach(System.out::println);
+        Consumer<PokerHand> checkHand = PokerHand::evalHand;
+        pokerHands.forEach(checkHand.andThen(System.out::println));
+
+        int cardsDealt = playerCount + cardsInHand;
+        int cardsRemaining = deck.size()-cardsDealt;
+
+        remainingCards = new ArrayList<>(Collections.nCopies(cardsRemaining, null));
+        remainingCards.replaceAll(c -> deck.get(cardsDealt + remainingCards.indexOf(c)));
+        Card.printDeck(remainingCards);
     }
 
     private void deal(){
