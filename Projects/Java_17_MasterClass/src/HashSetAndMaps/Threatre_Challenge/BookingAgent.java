@@ -1,4 +1,4 @@
-package HashSetAndMaps.Threatre_Challenge.lpa;
+package HashSetAndMaps.Threatre_Challenge;
 
 public class BookingAgent {
 
