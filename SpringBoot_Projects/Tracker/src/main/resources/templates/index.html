@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="assets/stylesheets/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container">
+        <div class="row">
+        
+        <!-- Main Content -->
+        <div class="col-12" style="padding: 30px;">
+            <!--Nav Bar section-->
+            <section>
+                <div class="navbar navbar-expand-lg py-3">
+                    <div class="container">
+                        <a href="#" class="navbar-brand text-white">
+                            ExpressTracking
+                        </a>
+        
+                        <!--Collapse Button-->
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                            <span class="navbar-toggler-icon bg-white"></span>
+                        </button>
+        
+                        <div class="collapse navbar-collapse justify-content-end" id="navmenu">
+                            <ul class="navbar-nav">
+                                <li class="nav-item mx-2">
+                                  <a class="nav-link text-white" aria-current="page" href="#">HOME</a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                  <a class="nav-link text-white" href="#">ABOUT</a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                    <a class="nav-link text-white" aria-current="page" href="#">CONTACT</a>
+                                </li>
+                            </ul>
+
+                            <button id="newExpenseBtn" class="btn btn-warning rounded-pill">New Expense</button>
+                        </div>  
+                    </div>
+                </div>
+            </section>
+
+            <!-- New Expense Form Section -->
+            <div id="newExpenseSection" class="mt-4" style="display: none;">
+                <div class="card">
+                    <div class="card-header">Add New Expense</div>
+                    <div class="card-body">
+                        <form id="newExpenseForm" th:action="@{/addExpense}" method="post" th:object="${expenseObject}">
+                            <div class="mb-3">
+                                <label for="expenseVendor" class="form-label">Vendor/Category</label>
+                                <input type="text" id="expenseVendor" class="form-control" th:field="*{name}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expenseDate" class="form-label">Date</label>
+                                <input type="date" id="expenseDate" class="form-control" th:field="*{date}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expenseDescription" class="form-label">Description</label>
+                                <textarea id="expenseDescription" class="form-control" rows="3" th:field="*{description}" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expenseAmount" class="form-label">Amount</label>
+                                <input type="number" id="expenseAmount" class="form-control" step="0.01" th:field="*{amount}" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Expense</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+			<h5 class="my-4 text-center text-warning biggerText">Recently Updated</h5>
+			<div class="row gx-3 gy-4">
+			    <!-- Expense Cards -->
+			    <div th:each="expense : ${recentExpenses}" class="col-12 col-md-4 col-lg-3">
+			        <div class="card text-center d-flex flex-column h-100">
+			            <div class="card-body">
+			                <h6 class="card-title" th:text="${expense.name}">Tuck Shop</h6>
+			                <p class="text-muted mb-1" th:text="${expense.date}">10/10/16</p>
+			                <p class="text-primary fw-bold" th:text="${expense.amount}">$20.00</p>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+
+
+
+            <!-- All Expenses Table -->
+            <h5 class="my-4 mt-5 text-center text-warning biggerText">All Expenses</h5>
+
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col"><input type="checkbox" class="form-check-input"></th>
+                        <th scope="col">Vendor/Category</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="expense : ${expenseList}">
+                        <td><input type="checkbox" class="form-check-input"></td>
+                        <td th:text="${expense.name}"></td>
+                        <td th:text="${expense.date}"></td>
+                        <td th:text="${expense.description}"></td>
+                        <td th:text="${expense.amount}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+        document.getElementById('newExpenseBtn').addEventListener('click', function() {
+            const expenseSection = document.getElementById('newExpenseSection');
+            if (expenseSection.style.display === 'none') {
+                expenseSection.style.display = 'block';
+                this.textContent = 'Close';
+                this.classList.remove('btn-warning');
+                this.classList.add('btn-danger');
+            } else {
+                expenseSection.style.display = 'none';
+                this.textContent = 'New Expense';
+                this.classList.remove('btn-danger');
+                this.classList.add('btn-warning');
+            }
+        });
+    </script>
+</body>
+</html>
