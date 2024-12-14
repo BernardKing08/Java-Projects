@@ -41,8 +41,6 @@ public class Person extends BaseEntity {
     @Column(name = "mobile_number")
     private String mobileNumber;
 
-
-
     @NotBlank(message = "Confirm Email must not be blank")
     @Email(message = "Please provide a valid confirm email address")
     @Transient

@@ -13,39 +13,33 @@ import com.ExpenseTracker.Model.Person;
 import com.ExpenseTracker.Repositories.PersonRepository;
 
 @Component
-public class ExpenseTrackerNamePwdAuthenticationProvider implements AuthenticationProvider{
+public class ExpenseTrackerNamePwdAuthenticationProvider implements AuthenticationProvider {
 
-	@Autowired
-	private PersonRepository personRepository;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	@Override
-	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		String email = authentication.getName();
-		String pwd = authentication.getCredentials().toString();
-		Person person = personRepository.readByEmail(email);
-		
-		if(person != null && person.getPersonId() > 0) {
-			if(passwordEncoder.matches(pwd, person.getPwd())) { 
-				//if password equals entered password return the user details
-				return new UsernamePasswordAuthenticationToken(person.getName(), null);
-			}
-			else {
-				System.out.println("Password Mismatch");
-				throw new BadCredentialsException("Invalid credentials");
-			}
-		}
-		else {
-			System.out.println("User not found" + email + "jjjjj");
-			throw new BadCredentialsException("Invalid Credentials");
-		}
-	}
+    @Autowired
+    private PersonRepository personRepository;
 
-	@Override
-	public boolean supports(Class<?> authentication) {
-		return authentication.equals(UsernamePasswordAuthenticationToken.class);
-	}
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+    @Override
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        String email = authentication.getName();
+        String pwd = authentication.getCredentials().toString();
+        Person person = personRepository.readByEmail(email);
+
+        if (person != null && person.getPersonId() > 0) {
+            if (passwordEncoder.matches(pwd, person.getPwd())) {
+                return new UsernamePasswordAuthenticationToken(person.getName(), null, null);
+            } else {
+                throw new BadCredentialsException("Invalid credentials");
+            }
+        } else {
+            throw new BadCredentialsException("Invalid credentials");
+        }
+    }
+
+    @Override
+    public boolean supports(Class<?> authentication) {
+        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+    }
 }

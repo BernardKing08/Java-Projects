@@ -32,11 +32,8 @@ public class ProjectSecurityConfig {
             )
             //this would not work since the login controller is being controlled in the controller class
             .logout(logoutConfigurer -> logoutConfigurer
-                .logoutSuccessUrl("/login?logout=true")
-                .invalidateHttpSession(true)
-                .permitAll()
-                .deleteCookies("JSESSIONID")
-                .permitAll()
+            		.logoutSuccessUrl("/login?logout=true")
+                    .invalidateHttpSession(true).permitAll()
             )
             .httpBasic(Customizer.withDefaults());
 
