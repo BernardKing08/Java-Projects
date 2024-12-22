@@ -1,4 +1,4 @@
-package HashSetAndMaps;
+package HashSetAndMaps.ContactChallenge;
 
 import java.util.*;
 
