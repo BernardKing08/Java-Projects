@@ -1,5 +1,3 @@
 package HashSetAndMaps.FinalCollectionsChallenge;
 
-public enum Category {
-    PRODUCE, DIARY, CEREAL, MEAT, BEVERAGE
-}
+public enum Category {PRODUCE, DAIRY, CEREAL, MEAT, BEVERAGE}

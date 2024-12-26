@@ -1,6 +1,6 @@
 package HashSetAndMaps.FinalCollectionsChallenge;
 
-public class Inventory {
+public class InventoryItem {
 
     private Product product;
     private double price; 
@@ -9,7 +9,7 @@ public class Inventory {
     private int qtyRecorder;
     private int qtyLow;
 
-    public Inventory(Product product, double price, int qtyTotal, int qtyLow) {
+    public InventoryItem(Product product, double price, int qtyTotal, int qtyLow) {
         this.product = product;
         this.price = price;
         this.qtyTotal = qtyTotal;
@@ -25,7 +25,7 @@ public class Inventory {
         return price;
     }
 
-    public boolean reserveeItem(int qty){
+    public boolean reserveItem(int qty){
         if((qtyTotal - qtyReserved) >= qty){
             qtyReserved += qty;
             return true;
