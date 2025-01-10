@@ -2,8 +2,8 @@ package Final_immutable_and_Static.immutableChallenges;
 
 import java.util.List;
 
-import Final_immutable_and_Static.immutableChallenges.dev.BankAccount;
-import Final_immutable_and_Static.immutableChallenges.dev.BankCustomer;
+import Final_immutable_and_Static.immutableChallenges.dev.Bank.BankAccount;
+import Final_immutable_and_Static.immutableChallenges.dev.Bank.BankCustomer;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package Final_immutable_and_Static.immutableChallenges.dev;
+package Final_immutable_and_Static.immutableChallenges.dev.Bank;
 
 public class BankAccount {
 
