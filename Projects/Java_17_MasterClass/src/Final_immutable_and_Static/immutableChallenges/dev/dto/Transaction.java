@@ -50,8 +50,5 @@ public class Transaction {
         return "%015d:%020d:%015d:%012.2f".formatted(routingNumber, customerId, transactionid, amount);
         
     }
-
-    
-
     
 }

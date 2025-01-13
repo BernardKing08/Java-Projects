@@ -24,7 +24,22 @@ public class BankCustomer {
     }
 
     public List<BankAccount> getAccounts() {
-        return new ArrayList<>(accounts);
+        return List.copyOf(accounts);
+    }
+
+    //get account by type
+    public BankAccount getAccount(BankAccount.AccountType type){
+        for(var account : accounts ){
+            if(account.getAccountType() == type){
+                return account;
+            }
+        }
+        
+        return null;
+    }
+
+    public String getCustomerId() {
+        return "015d".formatted(customerId);
     }
 
     @Override
