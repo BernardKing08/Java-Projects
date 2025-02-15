@@ -7,7 +7,7 @@ import java.util.Map;
 
 import Final_immutable_and_Static.GameConsole.dev.lpa.Pirate.Pirate;
 import Final_immutable_and_Static.GameConsole.dev.lpa.Pirate.Weapon;
-
+ 
 public class PirateGame extends Game<Pirate> {
 
     private static final List<List<String>> levelMap;
