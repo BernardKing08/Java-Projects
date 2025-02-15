@@ -1,0 +1,8 @@
+On making the register/signup page 
+it is possible to - instead of creating html and mapping it using thymeleaf, to instead 
+just pass a parameter login/$signup=true, doing this upon doing this   
+use thymeleaf to make the login section conditional if login/{whatevevr} == false show login
+else go to signin if true  
+
+i know it dosent make sense, i dont even understand what i wrote 
+

@@ -142,3 +142,8 @@ body {
 .biggerText{
     font-size: 30px;
 }
+
+.control-label:after{
+	content: "*";
+	color: red;
+}

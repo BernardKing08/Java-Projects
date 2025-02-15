@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ExpenseTracker.Model.Expense;
+import com.ExpenseTracker.Model.Person;
 import com.ExpenseTracker.Repositories.ExpenseRepository;
 
 @Service
@@ -24,9 +25,13 @@ public class ExpenseService {
         expenseRepository.save(expense);
     }
     
-    public List<Expense> getRecentExpenses() {
+    public List<Expense> getRecentExpenses(Person person) {
         // Fetch the 5 most recent expenses based on the id field
-        return expenseRepository.findTop5ByOrderByIdDesc();
+        return expenseRepository.findTop5ByPersonOrderByIdDesc(person);
+    }
+    
+    public void deleteExpense(int id) {
+    	expenseRepository.deleteById((Integer) id);
     }
 
 }

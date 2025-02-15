@@ -19,10 +19,14 @@ public class ProjectSecurityConfig {
             .authorizeHttpRequests(auth -> auth
 	                .requestMatchers("/home").authenticated()
 	                .requestMatchers("/addExpense").authenticated()
-	                .requestMatchers("/signin").permitAll()
+	                .requestMatchers("/register").permitAll()
 	                .requestMatchers("/assets/**").permitAll()
                     .requestMatchers("/login").permitAll()
+                    .requestMatchers("/createUser").permitAll()
                     .requestMatchers("/logout").permitAll()
+                    .requestMatchers("/deleteExpense/**").permitAll()
+                    .requestMatchers("/displayProfile").authenticated()
+                    .requestMatchers("/updateProfile").authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")

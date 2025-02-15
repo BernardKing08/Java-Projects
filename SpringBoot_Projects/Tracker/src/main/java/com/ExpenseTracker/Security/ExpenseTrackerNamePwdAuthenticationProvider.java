@@ -29,7 +29,8 @@ public class ExpenseTrackerNamePwdAuthenticationProvider implements Authenticati
 
         if (person != null && person.getPersonId() > 0) {
             if (passwordEncoder.matches(pwd, person.getPwd())) {
-                return new UsernamePasswordAuthenticationToken(person.getName(), null, null);
+            	//using the email instead of the person.getName() of the user to prevent duplicate names
+                return new UsernamePasswordAuthenticationToken(email, null, null);
             } else {
                 throw new BadCredentialsException("Invalid credentials");
             }

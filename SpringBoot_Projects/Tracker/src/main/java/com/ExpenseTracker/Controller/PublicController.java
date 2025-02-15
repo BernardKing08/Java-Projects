@@ -7,6 +7,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ExpenseTracker.Model.Person;
 import com.ExpenseTracker.Service.PersonService;
@@ -26,10 +27,12 @@ public class PublicController {
 	}
 	
 	@PostMapping("/createUser")
-	public String createUser(@Valid @ModelAttribute("person") Person person, Errors errors) {
+	public String createUser(@Valid @ModelAttribute("person") Person person, Errors errors, Model model) {
 		if(errors.hasErrors()) {
+			model.addAttribute("errorMessage", errors);
 			return "register";
 		}
+		
 		String isSaved = personService.createNewPerson(person);
 		
 		if(isSaved != null) {
