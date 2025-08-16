@@ -1,0 +1,8 @@
+.img-size{
+    height: 150px;
+}
+
+.btn-blue-gradient{
+    background: linear-gradient(90deg, #068ECB 0%, #00609F 79.94%);
+
+}

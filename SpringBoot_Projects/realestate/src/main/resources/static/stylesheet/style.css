@@ -1,0 +1,134 @@
+.bg-blue {
+  background-color: #068ECB !important;
+}
+
+/* Brand styling */
+.navbar-brand {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+/* Navbar link hover underline effect */
+.navbar-nav .nav-link {
+  position: relative;
+  color: white !important;
+  margin: 0 0.5rem;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+  width: 100%;
+}
+
+/* Profile image hover effect */
+.profile-img-wrapper::after {
+  display: none !important;
+}
+
+.profile-img-wrapper img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-img-wrapper:hover img {
+  transform: scale(1.08);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* Mobile adjustments */
+@media (max-width: 767.98px) {
+  .navbar-collapse {
+    padding-top: 1rem;
+  }
+  .navbar-nav {
+    align-items: flex-end;
+  }
+  .nav-item {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/*** User profile ***/
+.user-profile-page .text-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.user-profile-page .card-header {
+  font-size: small;
+}
+
+.user-profile-page .profile-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  display: block;
+}
+
+/* small-screen adjustments */
+@media (max-width: 767.98px) {
+  .user-profile-page .profile-img {
+    width: 84px;
+    height: 84px;
+  }
+  .user-profile-page .text-name {
+    font-size: 1.15rem;
+  }
+}
+
+/*** Accommodation section ***/
+.user-profile-page .neg-margin {
+  margin-bottom: -115px;
+  margin-top: -65px;
+}
+
+.user-profile-page .acc-status a {
+  background-image: linear-gradient(
+    to right,
+    #54b3d6,
+    #54b3d6 50%,
+    #000 50%
+  );
+  background-size: 200% 100%;
+  background-position: -100%;
+  display: inline-block;
+  padding: 5px 0;
+  position: relative;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.user-profile-page .acc-status a::before {
+  content: '';
+  background: #54b3d6;
+  display: block;
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+.user-profile-page .acc-status a:hover {
+  background-position: 0;
+}
+
+.user-profile-page .acc-status a:hover::before {
+  width: 100%;
+}
