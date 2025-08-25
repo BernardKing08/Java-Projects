@@ -6,9 +6,6 @@
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
-   <!-- Add this in <head> -->
-  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
-
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
   <!-- Google Fonts -->
@@ -16,58 +13,141 @@
   <!-- style sheets -->
   <link rel="stylesheet" href="/stylesheet/style.css">
   <link rel="stylesheet" href="/stylesheet/product_style.css">
-  <title>Ecommerce-Page</title>
+  <title>Accommodation - Room Selection</title>
+  <!-- Pass current user data to JavaScript -->
+  <meta name="current-user-id" th:content="${currentUser?.id}" th:if="${currentUser}">
+  <meta name="current-user-email" th:content="${currentUser?.email}" th:if="${currentUser}">
+  <meta name="current-user-name" th:content="${currentUser?.name}" th:if="${currentUser}">
+  <style>
+    .debug-panel {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      width: 300px;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 5px 0 0 0;
+      padding: 10px;
+      font-size: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: -2px -2px 5px rgba(0,0,0,0.1);
+    }
+    .debug-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #ccc;
+    }
+    .debug-toggle {
+      cursor: pointer;
+      background: #6c757d;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+    .debug-content {
+      display: block;
+    }
+    .debug-hidden {
+      display: none;
+    }
+    .debug-log {
+      margin: 3px 0;
+      padding: 3px;
+      border-bottom: 1px dotted #eee;
+    }
+    .debug-error {
+      color: #dc3545;
+    }
+    .debug-success {
+      color: #28a745;
+    }
+    .debug-info {
+      color: #17a2b8;
+    }
+    
+    
+  </style>
 </head>
 <body class="product">
 
-<nav class="navbar navbar-expand-md navbar-dark bg-blue py-2 px-3">
-  <div class="container-fluid">
-    <!-- Brand -->
-    <a class="navbar-brand" th:href="@{/index.html}">
-      <img src="/images/0b85d63fda31ffa7c53b34402bafdf359f335361.png"
-           alt="HomeEase Logo"
-           width="32" height="32"
-           class="d-inline-block align-text-top me-2">
-      HomeEase
-    </a>
+<!-- Debug Panel (only show in development) -->
+<div class="debug-panel" th:if="${@environment.acceptsProfiles('dev')}">
+  <div class="debug-header">
+    <strong>Payment Debug</strong>
+    <span class="debug-toggle" onclick="toggleDebug()">Hide</span>
+  </div>
+  <div class="debug-content" id="debugContent">
+    <div class="debug-log debug-info">Debug panel initialized</div>
+  </div>
+</div>
 
-    <!-- Toggler (hidden at md and up because of navbar-expand-md) -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="bi bi-list" style="font-size: 1.5rem; color: white;"></i>
-    </button>
-
-    <!-- Menu -->
-    <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-md-0 align-items-center">
-        <li class="nav-item">
-          <a class="nav-link active" href="#" aria-current="page">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/rooms}">Products</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
-
-        <!-- Profile -->
-        <li class="nav-item ">
-          <a class="nav-link p-0 profile-img-wrapper" href="#">
-            <img src="/images/photo-1529139574466-a303027c1d8b.avif"
-              alt="Profile"
-              width="42" height="42"
-              class="rounded-circle border border-2 border-white object-fit-cover">
-          </a>
-        </li>
-      </ul>
+<!-- Success Modal -->
+<div class="modal success-modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center py-5">
+        <div class="success-icon">
+          <i class="bi bi-check-circle-fill"></i>
+        </div>
+        <h3 class="mb-3">Payment Successful!</h3>
+        <p class="text-muted">Your application is pending approval from administrators. You will be notified once it's reviewed.</p>
+        <button type="button" class="btn btn-blue-gradient mt-3" data-bs-dismiss="modal">Continue</button>
+      </div>
     </div>
   </div>
-</nav>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center py-5">
+        <div class="text-danger" style="font-size: 5rem;">
+          <i class="bi bi-x-circle-fill"></i>
+        </div>
+        <h3 class="mb-3">Payment Failed</h3>
+        <p class="text-muted" id="errorMessage">An error occurred during payment processing.</p>
+        <button type="button" class="btn btn-secondary mt-3" data-bs-dismiss="modal">Try Again</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Import header fragment -->
+<div th:replace="~{headerfragment :: siteHeader}"></div>
 
 <section class="product-list container mt-3">
+  <!-- Success/Error Messages -->
+  <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="bi bi-check-circle-fill me-2"></i>
+    <span th:text="${successMessage}">Payment successful!</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  
+  <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="bi bi-exclamation-circle-fill me-2"></i>
+    <span th:text="${errorMessage}">An error occurred</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <!-- Also handle URL parameters for backward compatibility -->
+  <div th:if="${param.success}" class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="bi bi-check-circle-fill me-2"></i>
+    Payment successful! Your application is pending approval.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  
+  <div th:if="${param.error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="bi bi-exclamation-circle-fill me-2"></i>
+    <span th:text="${param.error}">An error occurred</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
   <p class="text-product-list text-muted small">
     Get started on your accommodation process, select a home that works for you
   </p>
@@ -95,7 +175,8 @@
               class="btn text-white btn-blue-gradient w-100 view-details-btn"
               data-bs-toggle="modal" 
               data-bs-target="#propertyModal"
-              th:attr=" data-title=${room.house.name} + ' - Room ' + ${room.roomNo},
+              th:attr="data-roomid=${room.id},
+                        data-title=${room.house.name} + ' - Room ' + ${room.roomNo},
                         data-description=${room.house.description},
                         data-bath=${room.bath},
                         data-rooms=${room.numberOfRoom},
@@ -105,14 +186,13 @@
                         data-image=${room.house.imageUrl}">
               View Details
             </a>
-
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Property Details Modal -->
   <div class="modal fade" id="propertyModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content border-0">
@@ -138,29 +218,352 @@
               <h6>Description</h6>
               <p id="modalDescription" class="text-muted"></p>
               
-              <button class="btn btn-blue-gradient text-white">Apply</button>
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <h5 class="text-primary" id="modalPrice"></h5>
+                <div class="text-end">
+                  <div class="text-muted small mb-1" id="currentUserDisplay" style="display: none;">
+                    <i class="bi bi-person-fill"></i> <span id="currentUserText"></span>
+                  </div>
+                  <button type="button" class="btn btn-blue-gradient text-white" id="applyButton">
+                    Apply Now
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>
+</section> 
+
+<!-- Hidden form for server communication -->
+<form id="paymentForm" class="hidden" method="post">
+  <input type="hidden" name="userEmail" id="userEmailInput">
+</form>
 
 <script>
-  document.querySelectorAll('.view-details-btn').forEach(btn => {
-  btn.addEventListener('click', function () {
-    document.getElementById('modalTitle').textContent = this.dataset.title;
-    document.getElementById('modalBath').textContent = this.dataset.bath + ' Bath';
-    document.getElementById('modalRoom').textContent = this.dataset.rooms + ' Beds';
-    document.getElementById('modalFloor').textContent = 'Floor ' + this.dataset.floor;
-    document.getElementById('modalAddress').textContent = this.dataset.location;
-    document.getElementById('modalDescription').textContent = this.dataset.description;
-    document.getElementById('modalImage').src = this.dataset.image;
-  });
-});
+  // ==================== MODAL DATA HANDLING ====================
+  // Store current room data for payment
+  let currentRoomData = null;
 
+  // Handle view details button clicks
+  document.querySelectorAll('.view-details-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      // Store room data for later use
+      currentRoomData = {
+        id: this.dataset.roomid,
+        title: this.dataset.title,
+        bath: this.dataset.bath,
+        rooms: this.dataset.rooms,
+        floor: this.dataset.floor,
+        location: this.dataset.location,
+        description: this.dataset.description,
+        image: this.dataset.image,
+        price: this.dataset.price
+      };
+      
+      // Update modal content
+      document.getElementById('modalTitle').textContent = this.dataset.title;
+      document.getElementById('modalBath').textContent = this.dataset.bath + ' Bath';
+      document.getElementById('modalRoom').textContent = this.dataset.rooms + ' Beds';
+      document.getElementById('modalFloor').textContent = 'Floor ' + this.dataset.floor;
+      document.getElementById('modalAddress').textContent = this.dataset.location;
+      document.getElementById('modalDescription').textContent = this.dataset.description;
+      document.getElementById('modalImage').src = this.dataset.image;
+      document.getElementById('modalPrice').textContent = '₦' + parseFloat(this.dataset.price).toLocaleString();
+      
+      // Update current user display
+      updateCurrentUserDisplay();
+      
+      logDebug(`Modal loaded for room: ${this.dataset.title}`);
+    });
+  });
+
+  // ==================== PAYMENT HANDLING ====================
+  // Handle apply button click
+  document.getElementById('applyButton').addEventListener('click', function() {
+    if (!currentRoomData) {
+      logDebug('No room data available', 'error');
+      showError('Please select a room first.');
+      return;
+    }
+    
+    logDebug(`Apply button clicked for room: ${currentRoomData.title}`);
+    
+    // Get current user email from meta tags
+    const userEmail = getCurrentUserEmail();
+    
+    if (!userEmail) {
+      logDebug('No current user found', 'error');
+      showError('User information not found. Please refresh the page and try again.');
+      return;
+    }
+    
+    logDebug(`Initiating payment for room ${currentRoomData.id} with user email ${userEmail}`);
+    
+    // Show processing modal
+    const processingModal = new bootstrap.Modal(document.getElementById('processingModal'));
+    processingModal.show();
+    
+    // Close property modal
+    const propertyModal = bootstrap.Modal.getInstance(document.getElementById('propertyModal'));
+    if (propertyModal) {
+      propertyModal.hide();
+    }
+    
+    // Small delay to ensure modals transition properly
+    setTimeout(() => {
+      initPayment(currentRoomData.id, userEmail);
+    }, 300);
+  });
+
+  // Initialize payment by calling backend
+  function initPayment(roomId, userEmail) {
+    try {
+      logDebug(`Submitting payment form for room ${roomId}`);
+      
+      // Set form values
+      document.getElementById('userEmailInput').value = userEmail;
+      const paymentForm = document.getElementById('paymentForm');
+      paymentForm.action = `/payments/init/${roomId}`;
+      
+      // Submit the form - this will redirect to Paystack or back with error
+      paymentForm.submit();
+      
+    } catch (error) {
+      logDebug(`Error initializing payment: ${error.message}`, 'error');
+      hideProcessingModal();
+      showError('Error initializing payment: ' + error.message);
+    }
+  }
+
+  // ==================== USER HANDLING ====================
+  /**
+   * Get current user email from meta tags
+   */
+  function getCurrentUserEmail() {
+    const userEmailMeta = document.querySelector('meta[name="current-user-email"]');
+    if (userEmailMeta && userEmailMeta.getAttribute('content')) {
+      return userEmailMeta.getAttribute('content');
+    }
+    
+    // Fallback: try Thymeleaf inline
+    const thymeleafEmail = /*[[${currentUser?.email}]]*/ null;
+    if (thymeleafEmail) {
+      return thymeleafEmail;
+    }
+    
+    return null;
+  }
+
+  /**
+   * Get current user ID from meta tags
+   */
+  function getCurrentUserId() {
+    const userIdMeta = document.querySelector('meta[name="current-user-id"]');
+    if (userIdMeta && userIdMeta.getAttribute('content')) {
+      return userIdMeta.getAttribute('content');
+    }
+    
+    // Fallback: try Thymeleaf inline
+    const thymeleafUserId = /*[[${currentUser?.id}]]*/ null;
+    if (thymeleafUserId) {
+      return thymeleafUserId;
+    }
+    
+    return null;
+  }
+
+  /**
+   * Get current user name from meta tags
+   */
+  function getCurrentUserName() {
+    const userNameMeta = document.querySelector('meta[name="current-user-name"]');
+    if (userNameMeta && userNameMeta.getAttribute('content')) {
+      return userNameMeta.getAttribute('content');
+    }
+    
+    // Fallback: try Thymeleaf inline
+    const thymeleafUserName = /*[[${currentUser?.name}]]*/ null;
+    if (thymeleafUserName) {
+      return thymeleafUserName;
+    }
+    
+    return null;
+  }
+
+  /**
+   * Update current user display in modal
+   */
+  function updateCurrentUserDisplay() {
+    const userEmail = getCurrentUserEmail();
+    const userName = getCurrentUserName();
+    const userDisplay = document.getElementById('currentUserDisplay');
+    const userText = document.getElementById('currentUserText');
+    
+    if ((userEmail || userName) && userDisplay && userText) {
+      const displayText = userName ? `${userName} (${userEmail})` : userEmail;
+      userText.textContent = displayText;
+      userDisplay.style.display = 'block';
+      logDebug(`Current user display updated: ${displayText}`);
+    } else if (userDisplay) {
+      userDisplay.style.display = 'none';
+      logDebug('No current user found for display');
+    }
+  }
+
+  // Validate email format
+  function isValidEmail(email) {
+    if (!email || typeof email !== 'string') {
+      return false;
+    }
+    
+    // Basic email regex - more permissive for better UX
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email.trim());
+  }
+
+  /**
+   * Update email display in modal
+   */
+  function updateEmailDisplay() {
+    const storedEmail = getStoredEmail();
+    const emailDisplay = document.getElementById('userEmailDisplay');
+    const emailText = document.getElementById('userEmailText');
+    
+    if (storedEmail && emailDisplay && emailText) {
+      emailText.textContent = storedEmail;
+      emailDisplay.style.display = 'block';
+    } else if (emailDisplay) {
+      emailDisplay.style.display = 'none';
+    }
+  }
+
+  /**
+   * Clear stored email (useful for testing or if user wants to change email)
+   */
+  function clearStoredEmail() {
+    sessionStorage.removeItem('userEmail');
+    logDebug('Stored email cleared');
+  }
+
+  /**
+   * Get stored email for display purposes
+   */
+  function getStoredEmail() {
+    return sessionStorage.getItem('userEmail');
+  }
+
+  // ==================== UTILITY FUNCTIONS ====================
+  // Hide processing modal
+  function hideProcessingModal() {
+    const processingModal = bootstrap.Modal.getInstance(document.getElementById('processingModal'));
+    if (processingModal) {
+      processingModal.hide();
+    }
+  }
+
+  // Debug functions
+  function logDebug(message, type = 'info') {
+    const debugContent = document.getElementById('debugContent');
+    if (debugContent) {
+      const logEntry = document.createElement('div');
+      logEntry.className = `debug-log debug-${type}`;
+      logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      debugContent.appendChild(logEntry);
+      debugContent.scrollTop = debugContent.scrollHeight;
+    }
+    
+    // Also log to console
+    console.log(`[${type.toUpperCase()}] ${message}`);
+  }
+  
+  function toggleDebug() {
+    const content = document.getElementById('debugContent');
+    const toggle = document.querySelector('.debug-toggle');
+    if (content && toggle) {
+      if (content.classList.contains('debug-hidden')) {
+        content.classList.remove('debug-hidden');
+        toggle.textContent = 'Hide';
+      } else {
+        content.classList.add('debug-hidden');
+        toggle.textContent = 'Show';
+      }
+    }
+  }
+
+  // Show error message
+  function showError(message) {
+    document.getElementById('errorMessage').textContent = message;
+    const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+    errorModal.show();
+    hideProcessingModal();
+  }
+
+  // Show success message
+  function showSuccess(message = 'Payment successful! Your application is pending approval.') {
+    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+    successModal.show();
+    hideProcessingModal();
+  }
+
+  // ==================== INITIALIZATION ====================
+  // Handle page load and URL parameters
+  document.addEventListener('DOMContentLoaded', function() {
+    logDebug('Page loaded successfully');
+    
+    // Check for success or error in URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    if (urlParams.has('success')) {
+      // Success message will be shown via Bootstrap alert, but also show modal
+      setTimeout(() => {
+        showSuccess();
+      }, 1000);
+      
+      // Clean URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+    
+    if (urlParams.has('error')) {
+      // Error message will be shown via Bootstrap alert
+      const errorParam = urlParams.get('error');
+      setTimeout(() => {
+        if (errorParam !== 'null' && errorParam !== '') {
+          showError(errorParam);
+        }
+      }, 1000);
+      
+      // Clean URL  
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    // Auto-dismiss alerts after 5 seconds
+    setTimeout(() => {
+      const alerts = document.querySelectorAll('.alert-dismissible');
+      alerts.forEach(alert => {
+        const bsAlert = new bootstrap.Alert(alert);
+        bsAlert.close();
+      });
+    }, 5000);
+  });
+
+  // Handle browser back button after payment
+  window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+      // Page was loaded from cache (user hit back button)
+      hideProcessingModal();
+      logDebug('Page loaded from cache, hiding processing modal');
+    }
+  });
+
+  // Handle beforeunload to hide processing modal
+  window.addEventListener('beforeunload', function() {
+    hideProcessingModal();
+  });
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     
 </body>

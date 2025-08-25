@@ -1,18 +1,21 @@
 package com.realestate.realestate.dto;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//allocation info for normal users
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AllocationDTO {
-    private String status;
+public class AdminAllocationDTO {
+    private Long personId;
+    private String name;
     private String roomNo;
     private String houseAddress;
-    private String rent;
-    private String houseImage;
-    private String houseDescription;
+    private LocalDate dateApplied;
+    private String accommodationStatus;
+
+    // getters & setters
 }

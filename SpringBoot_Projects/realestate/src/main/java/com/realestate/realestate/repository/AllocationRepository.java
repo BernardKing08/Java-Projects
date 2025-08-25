@@ -22,5 +22,13 @@ public interface AllocationRepository extends JpaRepository<Allocation, Integer>
     // Additional methods can be defined as per requirements
     @Query("SELECT a FROM Allocation a WHERE a.person = :person AND a.status IN ('Active', 'Pending')")
     Optional<Allocation> findCurrentActiveOrPendingByPerson(@Param("person") Person person);
+
+    @Query("""
+        SELECT a 
+        FROM Allocation a 
+        JOIN a.person p 
+        WHERE p.role.id = 2
+    """)
+    List<Allocation> findAllNonAdminAllocations();
     
 }

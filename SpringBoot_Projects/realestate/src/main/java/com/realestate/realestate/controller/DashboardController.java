@@ -23,7 +23,7 @@ public class DashboardController {
     @GetMapping("/home")
     public String home(Model model) {
         // Example: Fetch logged-in user (hardcoded for now)
-        Person person = personRepository.findById(2).orElse(null);
+        Person person = personRepository.findById(1).orElse(null);
 
         AllocationDTO allocationInfo = allocationService.getAllocationInfo(person);
 

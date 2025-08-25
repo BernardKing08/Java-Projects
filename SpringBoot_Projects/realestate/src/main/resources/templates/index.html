@@ -14,52 +14,10 @@
   <title>Ecommerce-Page</title>
 </head>
 <body class="user-profile-page">
-<nav class="navbar navbar-expand-md navbar-dark bg-blue py-2 px-3">
-  <div class="container-fluid">
-    <!-- Brand -->
-    <a class="navbar-brand" th:href="@{/home}">
-      <img src="/images/0b85d63fda31ffa7c53b34402bafdf359f335361.png"
-           alt="HomeEase Logo"
-           width="32" height="32"
-           class="d-inline-block align-text-top me-2">
-      HomeEase
-    </a>
 
-    <!-- Toggler (hidden at md and up because of navbar-expand-md) -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="bi bi-list" style="font-size: 1.5rem; color: white;"></i>
-    </button>
+<!-- Import header fragment -->
+  <div th:replace="~{headerfragment :: siteHeader}"></div>
 
-    <!-- Menu -->
-    <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-md-0 align-items-center">
-        <li class="nav-item">
-          <a class="nav-link active" href="#" aria-current="page">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/rooms}">Products</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
-
-        <!-- Profile -->
-        <li class="nav-item ">
-          <a class="nav-link p-0 profile-img-wrapper" href="#">
-            <img src="/images/photo-1529139574466-a303027c1d8b.avif"
-              alt="Profile"
-              width="42" height="42"
-              class="rounded-circle border border-2 border-white object-fit-cover">
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
 
 <section class="user-details container my-3">
   <div>
@@ -86,7 +44,7 @@
           </div>
 
           <!-- Name, Rent, Date applied -->
-          <div class="col-12 col-md d-flex flex-column align-items-center justify-content-center pe-md-3 mb-2 mb-md-0">
+          <div class="col-12 col-md d-flex flex-column align-items-center justify-content-start pe-md-3 mb-2 mb-md-0">
             <div class="text-header text-center">
               Name: <span class="fw-semibold mb-1" th:text="${person.name}">Dorathy Okereke</span>
             </div>
@@ -125,54 +83,59 @@
       </div>
     </div>
 
-<!-- Accommodation status card -->
-<div class="acc-status card mt-3">
-  <div class="card-header">
-    Accommodation Status
-  </div>
-
-  <!-- If no allocation -->
-  <div th:if="${allocation.status == 'None'}" class="card-body p-3 p-md-4">
-    <div class="d-flex flex-column justify-content-center align-items-center text-center">
-      <img th:src="@{/images/1bedcbc3f31ffe5889846835750fb317b7b46a2e.gif}" 
-           alt="Accommodation status" 
-           class="neg-margin" 
-           style="max-width: 600px;">
-      <p class="mb-1">No accommodation yet</p>
-      <p class="mb-0">
-        Click <a class="click-here" th:href="@{/rooms}">HERE</a> to get an accommodation
-      </p>
-    </div>
-  </div>
-
-  <!-- If active or pending allocation -->
-  <div th:if="${allocation.status != 'None'}" class="card-body p-3 p-md-4">
-    <div class="row g-4">
-      <div class="col-md-6">
-        <img th:src="@{/images/sample-house.jpg}" class="img-fluid rounded ratio r3" alt="Property image">
+    <!-- Accommodation status card -->
+    <div class="acc-status card mt-3">
+      <div class="card-header">
+        Accommodation Status
       </div>
 
-      <div class="col-md-6">
-        <h4 th:text="'Room ' + ${allocation.roomNo}"></h4>
-        
-        <div class="text-muted small mb-2">
-          <i class="bi bi-bucket-fill"></i> Bath Info  
-          <i class="bi bi-bed-fill ms-3"></i> <span th:text="${allocation.roomNo}"></span>  
-          <i class="bi bi-building-fill ms-3"></i> <span th:text="${allocation.houseNo}"></span>
+      <!-- If no allocation -->
+      <div th:if="${allocation.status == 'None'}" class="card-body p-3 p-md-4">
+        <div class="d-flex flex-column justify-content-center align-items-center text-center">
+          <img th:src="@{/images/1bedcbc3f31ffe5889846835750fb317b7b46a2e.gif}" 
+              alt="Accommodation status" 
+              class="neg-margin" 
+              style="max-width: 600px;">
+          <p class="mb-1">No accommodation yet</p>
+          <p class="mb-0">
+            Click <a class="click-here" th:href="@{/rooms}">HERE</a> to get an accommodation
+          </p>
         </div>
-        
-        <div class="text-muted small mb-3">
-          <i class="bi bi-geo-alt-fill"></i> Address Info
+      </div>
+
+      <!-- If active or pending allocation -->
+      <div th:if="${allocation.status != 'None'}" class="card-body p-3 p-md-4">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <img th:src="@{${allocation.houseImage}}" 
+                class="img-fluid rounded ratio r3" 
+                alt="Property image">
+          </div>
+
+
+          <div class="col-md-6">
+            <h4 th:text="'Room ' + ${allocation.roomNo}"></h4>
+            
+            <div class="text-muted small mb-2">
+              <i class="bi bi-bucket-fill"></i> Bath Info  
+              <i class="bi bi-bed ms-3"></i> <span th:text="${allocation.roomNo}"></span>  
+              <i class="bi bi-building-fill ms-3"></i> <span th:text="${allocation.houseAddress}"></span>
+            </div>
+            
+            <div class="text-muted small mb-3">
+              <i class="bi bi-geo-alt-fill" th:text="${allocation.houseAddress}"></i> Address Info
+            </div>
+            
+            <h6>Description</h6>
+            <p class="text-muted" th:text="${allocation.houseDescription}">
+                Property description here...
+            </p>
+
+            <button class="btn btn-blue-gradient text-white">Apply</button>
+          </div>
         </div>
-        
-        <h6>Description</h6>
-        <p class="text-muted">Property description here...</p>
-        
-        <button class="btn btn-blue-gradient text-white">Apply</button>
       </div>
     </div>
-  </div>
-</div>
 
   </div>
 </section>

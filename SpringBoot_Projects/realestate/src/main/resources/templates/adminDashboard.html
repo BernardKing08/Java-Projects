@@ -1,0 +1,118 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- style sheets -->
+    <link rel="stylesheet" href="/stylesheet/style.css">
+    <title>Ecommerce-Page</title>
+</head>
+<body>
+    
+  <!-- Import header fragment -->
+  <div th:replace="/headerfragment :: siteHeader"></div>
+
+  <section class="user-details container my-3">
+    <div>
+      <!-- Welcome note -->
+      <div class="welcome-note">
+        <span>Welcome,</span>
+        <span class="text-name fw-bold" th:text="${admin.name}">User Name</span>
+      </div>
+
+      <!-- Profile card -->
+      <div class="card mt-3">
+        <div class="card-header">
+          Profile details
+        </div>
+        <div class="card-body p-3 p-md-4">
+          <div class="row g-3 g-md-4 align-items-center">
+
+            <!-- Profile image -->
+            <div class="col-12 col-md-auto d-flex justify-content-center mb-2 mb-md-0">
+              <img th:src="@{/images/photo-1529139574466-a303027c1d8b.avif}"
+                  th:alt="${admin.name + ' profile'}"
+                  class="profile-img rounded-circle border border-2 object-fit-cover"
+                  style="width: 80px; height: 80px;">
+            </div>
+
+            <!-- Name, Rent, Date applied -->
+            <div class="col-12 col-md d-flex flex-column align-items-center justify-content-start pe-md-3 mb-2 mb-md-0">
+              <div class="text-header text-center">
+                Name: <span class="fw-semibold mb-1" th:text="${admin.name}">Dorathy Okereke</span>
+              </div>
+            </div>
+
+            <!-- Email, Room No, Accommodation Status -->
+            <div class="col-12 col-md d-flex flex-column align-items-center justify-content-center px-md-3 mb-2 mb-md-0">
+              <div class="text-header text-center">
+                Email: <span class="fw-semibold mb-1" th:text="${admin.email}">dorathy@example.com</span>
+              </div>
+            </div>
+
+            <!-- Phone No & House Address -->
+            <div class="col-12 col-md d-flex flex-column align-items-center justify-content-center ps-md-3">
+              <div class="text-header text-center">
+                Phone-no: <span class="fw-semibold mb-1" th:text="${admin.phoneNo}">+231 08 080 8080</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="requests container">
+    <div class="card mt-3 shadow-sm">
+      <div class="card-header">
+        <span class="card-title text-blue h4" style="color: 068ECB;">Requests  </span> 
+        <span class="small">Total Requests</span>
+        <span>(50)</span>
+      </div>
+        
+      <div class="card-body p-1 p-md-4">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Name</th>
+              <th>Room No</th>
+              <th>House Address</th>
+              <th>Date Applied</th>
+              <th>Accommodation Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Loop through people or DTOs -->
+            <tr th:each="person : ${people}">
+              <td th:text="${person.name}">John Doe</td>
+              <td th:text="${person.roomNo != null ? person.roomNo : '---'}">A1</td>
+              <td th:text="${person.houseAddress != null ? person.houseAddress : '---'}">House 1</td>
+              <td th:text="${person.dateApplied != null ? person.dateApplied : '---'}">2025-01-10</td>
+              <td th:text="${person.accommodationStatus != null ? person.accommodationStatus : 'None'}">Active</td>
+              <td>
+                <button class="btn btn-sm btn-primary me-1" th:onclick="'editUser(' + ${person.personId} + ')'">Edit</button>
+                <button class="btn btn-sm btn-danger" th:onclick="'deleteUser(' + ${person.personId} + ')'">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
+    
+  </section>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

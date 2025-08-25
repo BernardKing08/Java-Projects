@@ -18,4 +18,9 @@ public class RoomService {
     public List<Room> getAllRoomsWithHouse() {
         return roomRepository.findAllWithHouse();
     }
+
+    public Room findById(Long roomId) {
+        return roomRepository.findById(roomId)
+                .orElseThrow(() -> new RuntimeException("Room not found with id: " + roomId));
+    }
 }

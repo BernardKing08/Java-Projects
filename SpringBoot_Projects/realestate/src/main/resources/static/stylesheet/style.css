@@ -132,3 +132,8 @@
 .user-profile-page .acc-status a:hover::before {
   width: 100%;
 }
+
+.requests .card .card-header .text-blue {
+    color: #068ECB !important;  /* sets the text color */
+    background-color: transparent; /* optional, if you want no bg */
+}

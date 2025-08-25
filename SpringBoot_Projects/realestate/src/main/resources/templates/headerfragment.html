@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <div th:fragment="siteHeader">
+    <nav class="navbar navbar-expand-md navbar-dark bg-blue py-2 px-3">
+      <div class="container-fluid">
+        <!-- Brand -->
+        <a class="navbar-brand" th:href="@{/home}">
+          <img src="/images/0b85d63fda31ffa7c53b34402bafdf359f335361.png"
+               alt="HomeEase Logo"
+               width="32" height="32"
+               class="d-inline-block align-text-top me-2">
+          HomeEase
+        </a>
+
+        <!-- Toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="bi bi-list" style="font-size: 1.5rem; color: white;"></i>
+        </button>
+
+        <!-- Menu -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-md-0 align-items-center">
+            <li class="nav-item">
+              <a class="nav-link active" th:href="@{/home}" aria-current="page">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/rooms}">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+
+            <!-- Profile -->
+            <li class="nav-item ">
+              <a class="nav-link p-0 profile-img-wrapper" href="#">
+                <img src="/images/photo-1529139574466-a303027c1d8b.avif"
+                  alt="Profile"
+                  width="42" height="42"
+                  class="rounded-circle border border-2 border-white object-fit-cover">
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</body>
+</html>
