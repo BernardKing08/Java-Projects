@@ -9,6 +9,8 @@ import com.realestate.realestate.dto.AllocationDTO;
 import com.realestate.realestate.model.Person;
 import com.realestate.realestate.repository.PersonRepository;
 import com.realestate.realestate.service.AllocationService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -32,4 +34,13 @@ public class DashboardController {
 
         return "index";
     }
+
+    @GetMapping("/contact")
+    public String showContactPage(Model model) {
+        // You can pass any dynamic data to the UI here if needed
+        model.addAttribute("pageTitle", "Contact Support");
+        return "contact-us"; // this should match the name of your Thymeleaf HTML file (contact.html)
+    }
+
+    
 }
